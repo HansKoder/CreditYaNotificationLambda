@@ -13,7 +13,7 @@ describe("Domain (Model) Notification", () => {
         'destination': DestinationVO.create('doe'),
         'message': MessageVO.create('Hello, doe'),
         'subject': SubjectVO.create('Congrations!'),
-        'type': TypeNotificationVO.EMAIL
+        'type': TypeNotificationVO.create('EMAIL')
       } 
 
       Notification.create(props)
@@ -26,7 +26,7 @@ describe("Domain (Model) Notification", () => {
         'destination': DestinationVO.create('doe@gmail.com'),
         'message': MessageVO.create('Hello, doe'),
         'subject': SubjectVO.create('Congrations!'),
-        'type': TypeNotificationVO.EMAIL
+        'type': TypeNotificationVO.create('EMAIL')
     }
 
     const domain = Notification.create(props);

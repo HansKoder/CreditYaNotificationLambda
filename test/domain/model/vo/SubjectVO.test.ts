@@ -1,5 +1,4 @@
 import { NotificationDomainException } from "../../../../src/domain/model/exception/NotificationDomainException";
-import { MessageVO } from "../../../../src/domain/model/vo/MessageVO";
 import { SubjectVO } from "../../../../src/domain/model/vo/SubjectVO";
 
 describe("Domain (ValueObject) DestinationVO", () => {
@@ -8,7 +7,6 @@ describe("Domain (ValueObject) DestinationVO", () => {
     expect(() => SubjectVO.create(' '))
     .toThrow(NotificationDomainException)
   });
-
 
   it("should get a message with successful", () => {
     const vo = SubjectVO.create('Decision Loan - Jhon Doe');
