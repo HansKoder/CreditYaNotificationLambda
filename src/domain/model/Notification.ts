@@ -3,7 +3,7 @@ import { DestinationVO } from "./vo/DestinationVO";
 import { MessageVO } from "./vo/MessageVO";
 import { SubjectVO } from "./vo/SubjectVO";
 
-interface NotificationProps {
+export interface NotificationProps {
   destination: DestinationVO;
   subject: SubjectVO;
   message: MessageVO;
