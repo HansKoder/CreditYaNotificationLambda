@@ -1,0 +1,25 @@
+{
+  "name": "notifications-service",
+  "version": "0.1-snapshot",
+  "description": "Notification Lambda",
+  "license": "MIT",
+  "author": "hans.arias",
+  "scripts": {
+    "build": "tsc",
+    "start": "sls offline",
+    "test": "jest"
+  },
+  "dependencies": {
+    "aws-sdk": "^2.1418.0"
+  },
+  "devDependencies": {
+    "@types/jest": "^29.5.14",
+    "@types/node": "^20.5.0",
+    "jest": "^29.7.0",
+    "serverless": "^3.38.0",
+    "serverless-localstack": "^0.4.34",
+    "serverless-offline": "^13.3.0",
+    "ts-jest": "^29.4.3",
+    "typescript": "^5.9.2"
+  }
+}

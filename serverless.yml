@@ -1,0 +1,41 @@
+service: notifications-service
+
+frameworkVersion: "3"
+
+provider:
+  name: aws
+  runtime: nodejs18.x
+  region: us-east-1
+
+plugins:
+  - serverless-offline
+  - serverless-localstack
+
+custom:
+  localstack:
+    stages:
+      - local
+    host: http://localhost
+    edgePort: 4566
+
+functions:
+  notificationHandler:
+    handler: dist/interfaces/notificationHandler.main
+    events:
+      - sqs:
+          arn:
+            Fn::GetAtt:
+              - NotificationsQueue
+              - Arn
+
+resources:
+  Resources:
+    NotificationsQueue:
+      Type: AWS::SQS::Queue
+      Properties:
+        QueueName: notifications-queue
+
+    NotificationsTopic:
+      Type: AWS::SES::ConfigurationSet
+      Properties:
+        Name: notifications-ses-config
