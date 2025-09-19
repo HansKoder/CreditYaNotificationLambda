@@ -2,9 +2,11 @@ import { NotificationUseCase } from "../../domain/usecase/NotificationUseCase";
 import { SesEmailAdapter } from "../adapters/SesEmailAdapter";
 import { SendNotificationCommand } from "../../domain/usecase/Command";
 import to from "await-to-js";
+import { NotificationRepository } from "../../domain/model/gateway/NotificationRepository";
+import { INotificationUseCase } from "../../domain/usecase/INotificationUseCase";
 
-const sesAdapter = new SesEmailAdapter("us-east-1");
-const useCase = new NotificationUseCase(sesAdapter);
+const sesAdapter: NotificationRepository = new SesEmailAdapter("us-east-1");
+const useCase: INotificationUseCase = new NotificationUseCase(sesAdapter);
 
 export const handler = async (event: any) => {
     if (event == null || event == undefined)
@@ -19,7 +21,7 @@ export const handler = async (event: any) => {
 
     const [err, _] = await to(useCase.execute(props));
 
-    if (!err) {
+    if (err) {
         console.error("Error:", err);
         return { statusCode: 500, body: "Failed to send email" }
     }

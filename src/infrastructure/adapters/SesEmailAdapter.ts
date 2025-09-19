@@ -7,10 +7,12 @@ export class SesEmailAdapter implements NotificationRepository {
   private client: SESClient;
 
   constructor(region: string) {
+    console.log(`[infra.adapter.ses] (construct), payload=[ region:${region} ]`)
     this.client = new SESClient({ region });
   }
     
   async send(notification: Notification): Promise<void> {
+    console.log(`[infra.adapter.ses] (send) send notification using ses service adapter, payload=[${notification}]`)
     const params = {
       Destination: {
         ToAddresses: [notification.getDestination()],
@@ -24,6 +26,7 @@ export class SesEmailAdapter implements NotificationRepository {
       Source: "noreply@mydomain.com",
     };
 
+    console.log(`[infra.adapter.ses] (send) sending notification, payload=[ params:${params}]`)
     await this.client.send(new SendEmailCommand(params));
   }
   

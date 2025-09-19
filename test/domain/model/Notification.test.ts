@@ -3,7 +3,7 @@ import { Notification, NotificationProps } from "../../../src/domain/model/Notif
 import { DestinationVO } from "../../../src/domain/model/vo/DestinationVO";
 import { MessageVO } from "../../../src/domain/model/vo/MessageVO";
 import { SubjectVO } from "../../../src/domain/model/vo/SubjectVO";
-import { TypeNotificationVO } from "../../../src/domain/model/vo/TypeNotificationVO";
+import { TypeNotification, TypeNotificationVO } from "../../../src/domain/model/vo/TypeNotificationVO";
 
 describe("Domain (Model) Notification", () => {
   it("should throw exception because props has an invalid property", () => {
@@ -33,5 +33,10 @@ describe("Domain (Model) Notification", () => {
 
     expect(domain).not.toBeUndefined();
     expect(domain).not.toBeNull();
+
+    expect(domain.getDestination()).toEqual('doe@gmail.com');
+    expect(domain.getMessage()).toEqual('Hello, doe');
+    expect(domain.getSubject()).toEqual('Congrations!');
+    expect(domain.getType().getValue()).toEqual(TypeNotification.EMAIL);
   });
 });

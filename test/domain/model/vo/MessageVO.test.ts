@@ -8,6 +8,11 @@ describe("Domain (ValueObject) DestinationVO", () => {
     .toThrow(NotificationDomainException)
   });
 
+  it("should throw exception because message is too long", () => {
+    expect(() => MessageVO.create('a'.repeat(1001)))
+    .toThrow(NotificationDomainException)
+  });
+
   it("should get a message with successful", () => {
     const vo = MessageVO.create('Congrulations Jhon Doe, its loan was approved');
 
