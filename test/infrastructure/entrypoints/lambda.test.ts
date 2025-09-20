@@ -89,4 +89,27 @@ describe("NotificationLambda handler", () => {
     sinon.assert.calledOnce(stub);
   });
 
+
+  it("should return 400 when payload event has an invalid format", async () => {
+    const stub = sandbox.stub(NotificationUseCase.prototype, "execute")
+      .resolves();
+
+    const sqsEvent: SQSEvent = {
+      Records: [
+        {
+          messageId: "1",
+          receiptHandle: "abc",
+          body: "{ invalidJson: }",
+        },
+      ],
+    } as unknown as SQSEvent;
+
+    const response = await handler(sqsEvent);
+
+    expect(response.statusCode).toBe(400);
+    expect(response.body).toBe("Invalid JSON body");
+
+    sinon.assert.notCalled(stub);
+  });
+
 });
