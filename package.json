@@ -11,10 +11,12 @@
   },
   "dependencies": {
     "@aws-sdk/client-ses": "^3.891.0",
+    "@types/aws-lambda": "^8.10.152",
     "await-to-js": "^3.0.0",
     "aws-sdk": "^2.1418.0"
   },
   "devDependencies": {
+    "@testcontainers/localstack": "^11.6.0",
     "@types/jest": "^29.5.14",
     "@types/node": "^20.5.0",
     "@types/sinon": "^17.0.4",
