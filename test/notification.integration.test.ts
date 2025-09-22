@@ -40,6 +40,10 @@ describe('Notification Integration Test E2E', () => {
             new VerifyEmailIdentityCommand({ EmailAddress: "noreply@mydomain.com" })
         );
 
+        await sesClient.send(
+            new VerifyEmailIdentityCommand({ EmailAddress: "client@test.com" })
+        );
+
     });
 
     afterAll(async () => {
@@ -62,7 +66,7 @@ describe('Notification Integration Test E2E', () => {
             ],
         };
 
-        await handler(event as SQSEvent); // ejecuta la lambda con el evento
+        const response = await handler(event as SQSEvent); // ejecuta la lambda con el evento
 
         // Verificamos que SES procesó el correo
         const command = new SendEmailCommand({
@@ -74,8 +78,9 @@ describe('Notification Integration Test E2E', () => {
             },
         });
 
-        // Si no lanza error, significa que SES localstack lo aceptó
         await expect(sesClient.send(command)).resolves.not.toThrow();
+
+        expect(response.statusCode).toEqual(204);
 
     });
 
