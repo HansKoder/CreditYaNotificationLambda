@@ -1,26 +1,28 @@
-service: notifications-service
-
-frameworkVersion: "3"
+service: notification-service
 
 provider:
   name: aws
-  runtime: nodejs18.x
-  region: us-east-1
-
-plugins:
-  - serverless-offline
-  - serverless-localstack
-
-custom:
-  localstack:
-    stages:
-      - local
-    host: http://localhost
-    edgePort: 4566
+  runtime: nodejs22.x
+  region: us-east-2
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - sqs:ReceiveMessage
+        - sqs:DeleteMessage
+        - sqs:GetQueueAttributes
+      Resource:
+        - Fn::GetAtt:
+            - NotificationsQueue
+            - Arn
+    - Effect: Allow
+      Action:
+        - ses:SendEmail
+        - ses:SendRawEmail
+      Resource: "*"
 
 functions:
-  notificationHandler:
-    handler: dist/interfaces/notificationHandler.main
+  notificationLambda:
+    handler: dist/infrastructure/entrypoints/lambda.handler
     events:
       - sqs:
           arn:
@@ -35,7 +37,13 @@ resources:
       Properties:
         QueueName: notifications-queue
 
-    NotificationsTopic:
-      Type: AWS::SES::ConfigurationSet
-      Properties:
-        Name: notifications-ses-config
+
+package:
+  individually: true
+  patterns:
+    - '!test/**'
+    - '!src/**'
+    - '!coverage/**'
+    - '!*.md'
+    - '!tsconfig.json'
+    - '!jest.config.js'

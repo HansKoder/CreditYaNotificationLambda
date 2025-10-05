@@ -1,0 +1,17 @@
+# Ignorar config local
+.localstack
+.localstack-data
+.git
+.gitignore
+README.md
+*.log
+
+# Ignorar tests
+test/**
+tests/**
+**/*.spec.ts
+**/*.test.ts
+coverage/**
+
+# Ignorar source si solo quieres subir dist
+src/**

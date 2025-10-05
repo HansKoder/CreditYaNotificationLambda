@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@aws-sdk/client-ses": "^3.891.0",
+    "@aws-sdk/client-sqs": "^3.901.0",
     "@types/aws-lambda": "^8.10.152",
     "await-to-js": "^3.0.0",
     "aws-sdk": "^2.1418.0"
@@ -24,6 +25,7 @@
     "serverless": "^3.38.0",
     "serverless-localstack": "^0.4.34",
     "serverless-offline": "^13.3.0",
+    "serverless-offline-sqs": "^8.0.0",
     "sinon": "^21.0.0",
     "ts-jest": "^29.4.3",
     "typescript": "^5.9.2"

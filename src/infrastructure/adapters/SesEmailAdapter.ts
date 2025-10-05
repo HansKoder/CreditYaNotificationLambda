@@ -8,9 +8,13 @@ import { NotificationAdapterInfraException } from "./exception/NotificationAdapt
 export class SesEmailAdapter implements NotificationRepository {
   private client: SESClient;
 
-  constructor(region: string) {
-    console.log(`[infra.adapter.ses] (construct), payload=[ region:${region} ]`)
-    this.client = new SESClient({ region });
+  constructor() {
+    console.log(`[infra.adapter.ses] (construct)`)
+    const config = {
+      region: process.env.AWS_REGION || "us-east-1",
+    }
+
+    this.client = new SESClient(config);
   }
     
   async send(notification: Notification): Promise<void> {
@@ -25,11 +29,12 @@ export class SesEmailAdapter implements NotificationRepository {
         },
         Subject: { Data: notification.getSubject() },
       },
-      Source: "noreply@mydomain.com",
+      Source: "hansarias74@gmail.com",
     };
 
+    
     console.log(`[infra.adapter.ses] (send) before sending notification, payload=[ params:${JSON.stringify(params)}]`)
-    const [err, resp] = await to(this.client.send(new SendEmailCommand(params)));
+    const [err, resp] = await to(this.client.send(new SendEmailCommand(params)));    
 
     if (err) {
        console.log(`[infra.adapter.ses] (send) it cannot send message, payload=[ error:${JSON.stringify(err)}]`)
@@ -37,6 +42,7 @@ export class SesEmailAdapter implements NotificationRepository {
     }
 
     console.log(`[infra.adapter.ses] (send) the notification was sent with successful, payload=[ resp:${JSON.stringify(resp)}]`)
+    
   }
   
 }

@@ -7,7 +7,7 @@ import { INotificationUseCase } from "../../domain/usecase/INotificationUseCase"
 
 import { SQSEvent } from "aws-lambda"; 
 
-const sesAdapter: NotificationRepository = new SesEmailAdapter("us-east-1");
+const sesAdapter: NotificationRepository = new SesEmailAdapter();
 const useCase: INotificationUseCase = new NotificationUseCase(sesAdapter);
 
 export const handler = async (event: SQSEvent) => {
@@ -47,5 +47,5 @@ const sendNotification = async (payload: SendNotificationCommand) => {
   }
 
   console.log(`[infra.entrypoint.lambda] (handler) notification was successful`);
-  return { statusCode: 204 }; // 👈 No body
+  return { statusCode: 204 };
 };
